@@ -9,7 +9,7 @@ const multer = require("../middleware/multer-config");
 const saucesCtrl = require("../controllers/sauces");
 
 /*  Every single route will require authentification so you need to be      **    
-**  authentificate to have accès to some options, so only the               **
+**  authentificate to have acces to some options, so only the               **
 **  authentificate user can be allowed to do for exemple "delete" action    */
 
 //Here we add "multer" for pictures management
@@ -18,7 +18,8 @@ router.get("/:id", auth, saucesCtrl.getOneSauce);
 router.get("/", auth, saucesCtrl.getAllSauce);
 //Here we add "multer" to to manage pictures modifications
 router.put("/:id", auth, multer, saucesCtrl.modifySauce);
-router.delete("/:id", saucesCtrl.deleteSauce);
+router.delete("/:id", auth, saucesCtrl.deleteSauce);
+router.post("/:id/like", auth, saucesCtrl.likesDislikes);
 
 
 module.exports = router;

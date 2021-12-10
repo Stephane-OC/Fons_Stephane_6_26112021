@@ -1,6 +1,6 @@
 //Intall express
 const express = require('express');
-//Moogose is the module to used MongoDB
+//Moogose is the module to use MongoDB
 const mongoose = require('mongoose');
 //Security module for headers protections
 const helmet = require("helmet");
@@ -12,6 +12,8 @@ const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv');
 //Make the use of Cors easier
 const cors = require('cors');
+//Protection module againts noSql injections attack
+const mongoSanitize = require('express-mongo-sanitize');
 //Module who help to hide our mango db adress
 const path = require("path");
 dotenv.config();
@@ -46,16 +48,15 @@ app.use((req, res, next) => {
 //Instead of bodyparser, we use the Express body parser module
 app.use(express.json());
 
-
 app.use(helmet());
+
 app.use(xss());
-app.use(morgan("dev"));
+
+app.use(mongoSanitize());
 
 app.use(cors());
 
-
-
-
+app.use(morgan("dev"));
 
 const limiter = rateLimit({
   //One session can only be valid 15 minutes
