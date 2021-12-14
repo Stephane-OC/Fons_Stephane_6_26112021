@@ -75,7 +75,6 @@ module.exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
       //Our image's URL is split to only have the file name
-      //vérification du bon utilisateur sinon renvoyer une erreur
       const filename = sauce.imageUrl.split("/images/")[1];
       
       //With her name, we can now remove the sauce
